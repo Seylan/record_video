@@ -9,13 +9,14 @@ videoConcat({
   })
   .clips([
     {
-      "fileName": "/Users/awijesinghe/Development/research/record-video/videos/1.mp4"
+      "fileName": "/Users/awijesinghe/Development/research/record-video1/videos/1.mp4"
     },
     {
-      "fileName": "/Users/awijesinghe/Development/research/record-video/videos/2.mp4"
+      "fileName": "/Users/awijesinghe/Development/research/record-video1/videos/2.mp4"
     },
   ])
-  .output("/Users/awijesinghe/Development/research/record-video/videos/myAnswer.mp4") //optional absolute file name for output file 
+  .output("/Users/awijesinghe/Development/research/record-video1/videos/myFinalAnswer.mp4")
+  //optional absolute file name for output file 
   .concat()
   .then((outputFileName) => {
     
