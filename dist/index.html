@@ -182,6 +182,14 @@
             </div>
 
             <div style="margin-top: 10px;" id="recording-player"></div>
+            
+        </section>
+        <section class="experiment recordrtc">
+                <div>
+                        <p><small>Clicks:(Start/Stop) <a id="clicks-start">0</a>   Time: <a id="time-start"></a> </p>
+                        <p>Clicks: (Pause )     <a id="clicks-pause">0</a>   Time: <a id="time-pause"></a> </small></p>
+                        <p><small></small><a id="notification">0</a></small></p>
+                </div>
         </section>
 
         <script>
@@ -267,7 +275,8 @@
             var recorderType;
             var defaultWidth;
             var defaultHeight;
-
+            var clickCount=0;
+            var stopCount=0;
             var btnStartRecording = document.querySelector('#btn-start-recording');
 
             window.onbeforeunload = function() {
@@ -278,8 +287,13 @@
 
             btnStartRecording.onclick = function(event) {
                 var button = btnStartRecording;
-
+                clickCount+=1
+                document.getElementById("clicks-start").innerHTML = clickCount;
+                document.getElementById("time-start").innerHTML = Date();
+                document.getElementById("notification").innerHTML = "Recording started :".concat(Date());
                 if(button.innerHTML === 'Stop Recording') {
+                    stopCount += 1;
+                    document.getElementById("notification").innerHTML = "Recording Stopped ".concat(stopCount)+" times untill ".concat(Date());
                     btnPauseRecording.style.display = 'none';
                     button.disabled = true;
                     button.disableStateWaiting = true;
@@ -1868,8 +1882,13 @@
         </script>
 
         <script>
+            var pauseCount = 0;
+            var resumeCount = 0
             var btnPauseRecording = document.querySelector('#btn-pause-recording');
             btnPauseRecording.onclick = function() {
+                pauseCount+=1;
+                document.getElementById("clicks-pause").innerHTML = pauseCount;
+                document.getElementById("time-pause").innerHTML = Date();
                 if(!btnStartRecording.recordRTC) {
                     btnPauseRecording.style.display = 'none';
                     return;
@@ -1877,6 +1896,9 @@
 
                 btnPauseRecording.disabled = true;
                 if(btnPauseRecording.innerHTML === 'Pause') {
+                    
+                    document.getElementById("notification").innerHTML = "Recording paused ".concat(Date());
+
                     btnStartRecording.disabled = true;
                     btnStartRecording.style.fontSize = '15px';
                     btnStartRecording.recordRTC.pauseRecording();
@@ -1891,6 +1913,9 @@
                 }
 
                 if(btnPauseRecording.innerHTML === 'Resume Recording') {
+                    resumeCount += 1;
+                    document.getElementById("notification").innerHTML = "Resume button Clicked ".concat(resumeCount)+" times untill ".concat(Date());
+
                     btnStartRecording.disabled = false;
                     btnStartRecording.style.fontSize = 'inherit';
                     btnStartRecording.recordRTC.resumeRecording();
